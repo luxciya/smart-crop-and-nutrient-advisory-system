@@ -1,0 +1,327 @@
+================================================================================
+        SMART CROP & NUTRIENT ADVISORY SYSTEM — USER INSTRUCTIONS
+================================================================================
+
+--------------------------------------------------------------------------------
+OVERVIEW
+--------------------------------------------------------------------------------
+This is an AI + Machine Learning powered web application that helps farmers
+decide which crop to grow based on their soil and environmental conditions.
+
+The app has 4 main sections (tabs):
+  1. Crop Recommendation     — AI (Gemini) based crop suggestions
+  2. Nutrient Advisory       — AI fertilizer recommendations for a chosen crop
+  3. Ask Expert              — Ask any farming question to the AI
+  4. ML Crop Prediction      — ML model predictions (Random Forest + Linear Regression)
+
+
+================================================================================
+STEP 1 — SETUP & INSTALLATION
+================================================================================
+
+Make sure you have Python 3.10 installed (Anaconda recommended).
+
+Open a terminal / Anaconda Prompt and run:
+
+    pip install streamlit google-generativeai scikit-learn pandas numpy
+
+If you are using a conda environment:
+
+    conda activate py310
+    pip install streamlit google-generativeai scikit-learn pandas numpy
+
+
+================================================================================
+STEP 2 — GENERATE THE DATASET (first time only)
+================================================================================
+
+Run the dataset generator script to create training_dataset.csv:
+
+    python generate_dataset.py
+
+This will create:
+  - training_dataset.csv    (7,500+ rows of structured crop data)
+
+You should see output like:
+    Dataset saved -> training_dataset.csv
+    Total rows    : 7650
+    Unique crops  : 42
+    ...
+
+
+================================================================================
+STEP 3 — TRAIN THE ML MODELS (first time only)
+================================================================================
+
+Run the training script to build and save both ML models:
+
+    python train_model.py
+
+This will create a models/ folder containing:
+  - random_forest_model.pkl    (Random Forest Classifier)
+  - linear_regression_model.pkl (Linear Regression model)
+  - label_encoder.pkl          (crop name encoder)
+  - feature_encoder.pkl        (soil type / season / region encoder)
+
+You should see accuracy results printed in the terminal.
+
+NOTE: Steps 2 and 3 only need to be done ONCE. After that, you can run
+      the app directly any time without repeating these steps.
+
+
+================================================================================
+STEP 4 — RUN THE APP
+================================================================================
+
+Start the Streamlit web app:
+
+    streamlit run app.py
+
+The app will open automatically in your default browser at:
+    http://localhost:8501
+
+If it does not open automatically, copy that URL into your browser manually.
+
+
+================================================================================
+FORM INPUTS — EXPLAINED
+================================================================================
+
+All four tabs share the same set of input parameters. Here is what each
+field means and what values to enter:
+
+--------------------------------------------------------------------------------
+SOIL NUTRIENTS
+--------------------------------------------------------------------------------
+
+  Nitrogen (N) kg/ha
+    Range  : 0 to 150
+    What   : The amount of nitrogen present in your soil per hectare.
+    Tip    : Low nitrogen (< 40) suits legumes. High nitrogen (> 80) suits
+             rice, wheat, and maize.
+
+  Phosphorus (P) kg/ha
+    Range  : 0 to 150
+    What   : Phosphorus content in the soil. Promotes root development
+             and flowering.
+    Tip    : Most crops grow well between 40–80 kg/ha.
+
+  Potassium (K) kg/ha
+    Range  : 0 to 250
+    What   : Potassium content. Helps with disease resistance and
+             fruit/grain quality.
+    Tip    : Banana, sugarcane, and potato need high potassium (> 100).
+
+--------------------------------------------------------------------------------
+SOIL PROPERTIES
+--------------------------------------------------------------------------------
+
+  pH Level
+    Range  : 3.0 to 10.0
+    What   : Measures how acidic or alkaline your soil is.
+             7.0 = neutral, < 7 = acidic, > 7 = alkaline.
+    Tip    :
+      - Rice, tea, rubber     → pH 4.5 – 6.5 (acidic)
+      - Wheat, maize, cotton  → pH 6.0 – 7.5 (neutral)
+      - Chickpea, sorghum     → pH 6.0 – 8.0 (slightly alkaline OK)
+
+  Soil Moisture %
+    Range  : 0 to 100
+    What   : Percentage of water content currently in the soil.
+    Tip    :
+      - Rice, sugarcane       → 60–90% (high moisture)
+      - Groundnut, sesame     → 25–55% (low moisture)
+      - Most field crops      → 40–70%
+
+  Soil Type
+    Options: Sandy, Clay, Loamy, Silt, Peaty, Chalky, Saline
+    What   : The texture/composition of your soil.
+    Guide  :
+      Sandy  — drains quickly, low nutrients, good for groundnut/sesame
+      Clay   — holds water well, good for rice/cotton
+      Loamy  — best all-purpose soil, suits most crops
+      Silt   — fertile and moisture-retaining, good for vegetables/rice
+      Peaty  — high organic matter, acidic, suits tea/rubber/coffee
+      Chalky — alkaline, free-draining, suits brassicas and some cereals
+      Saline — high salt content, few crops tolerate this
+
+--------------------------------------------------------------------------------
+ENVIRONMENTAL CONDITIONS
+--------------------------------------------------------------------------------
+
+  Temperature (°C)
+    Range  : 5 to 50
+    What   : Average daily temperature in your area.
+    Tip    :
+      - Cool crops (potato, peas, wheat) → 10–22°C
+      - Warm crops (rice, cotton, maize) → 22–35°C
+      - Hot-dry crops (pearl millet)     → 28–42°C
+
+  Humidity %
+    Range  : 10 to 100
+    What   : Average air humidity (moisture in the atmosphere).
+    Tip    :
+      - High humidity (> 70%) suits tea, rubber, cardamom, coconut
+      - Moderate (40–70%) suits most field crops
+      - Low humidity (< 40%) suits sesame, safflower, dryland crops
+
+  Rainfall (mm/year)
+    Range  : 0 to 3000
+    What   : Total annual rainfall received in your region.
+    Tip    :
+      - < 500 mm   → Pearl millet, sesame, chickpea, safflower
+      - 500–1000   → Groundnut, cotton, sorghum, sunflower
+      - 1000–1500  → Rice, maize, soybean, sugarcane
+      - > 1500 mm  → Tea, rubber, cardamom, coconut, pepper
+
+--------------------------------------------------------------------------------
+LOCATION INPUTS
+--------------------------------------------------------------------------------
+
+  Cropping Season
+    Select the season that matches your current or planned planting period.
+    Available seasons:
+
+    Tamil Nadu:
+      - Kuruvai (Jun – Sep)    — TN Early Kharif
+      - Samba  (Aug – Jan)     — TN Main Season
+      - Navarai (Jan – Mar)    — TN Summer Crop
+
+    Andhra Pradesh / Telangana / Karnataka:
+      - Kharif / SW Monsoon (Jun – Oct)
+      - Rabi / Winter (Nov – Feb)
+      - Summer / Zaid (Mar – May)
+
+    Kerala:
+      - Virippu / SW Monsoon (Jun – Aug)
+      - Mundakan / NE Monsoon (Sep – Nov)
+      - Puncha / Winter Paddy (Dec – Feb)
+
+  Region
+    Select the geographical zone closest to your farm location.
+    Available regions:
+
+    Tamil Nadu   : Cauvery Delta, Coastal TN, Nilgiris, Southern Dry Zone
+    Andhra Pradesh: Godavari Delta, Krishna Delta, Coastal Andhra, Rayalaseema
+    Telangana    : Northern Dry Zone, Eastern Ghats Upland
+    Karnataka    : Deccan Plateau, Krishna-Tungabhadra Basin,
+                   Northern Dry Zone, Malnad (Western Ghats)
+    Kerala       : Palakkad Gap, Western Ghats, Coastal Kerala
+
+
+================================================================================
+TAB-BY-TAB GUIDE
+================================================================================
+
+TAB 1 — Crop Recommendation (AI)
+  1. Fill in all soil and environment parameters.
+  2. Click "Get Crop Recommendations".
+  3. The AI will suggest the top 3 crops with suitability scores,
+     reasons, expected yield, and best planting time.
+  4. High-demand crops for your selected season and region are shown
+     as green badges above the AI response.
+
+TAB 2 — Nutrient Advisory (AI)
+  1. Enter your soil nutrient values (N, P, K, pH, Soil Type).
+  2. Select the crop you plan to grow.
+  3. Click "Get Nutrient Advisory".
+  4. The AI will recommend fertilizer types, quantities, application
+     schedule, organic alternatives, and pH correction if needed.
+
+TAB 3 — Ask Expert (AI Chat)
+  1. Click any sample question button to auto-fill it, OR type your
+     own question in the text box.
+  2. Optionally check "Include my soil parameters" to give the AI
+     context from Tab 1.
+  3. Click "Get Expert Advice" to receive a detailed answer.
+
+TAB 4 — ML Crop Prediction (Machine Learning)
+  1. Fill in all soil and environment parameters.
+  2. Choose a prediction mode:
+       - Both Models Side-by-Side  : Compare RF and LR together
+       - Random Forest Only        : See top-5 crop probabilities
+       - Linear Regression Only    : See the raw regression score
+  3. Click "Run ML Prediction".
+  4. Results show:
+       - Random Forest  → predicted crop + probability bar chart
+       - Linear Regression → predicted crop + raw numeric score
+  5. If both models agree, a green success banner is shown.
+     If they disagree, a warning banner recommends trusting Random Forest.
+
+
+================================================================================
+OUTPUT FILES
+================================================================================
+
+  predictions.csv
+    Every query you run (AI or ML) is automatically logged here.
+    Columns: timestamp, prediction_type, nitrogen, phosphorus, potassium,
+             ph, moisture, soil_type, temperature, humidity, rainfall,
+             season, region, crop, question, context, ai_output
+
+  training_dataset.csv
+    The synthetic dataset used to train the ML models.
+    Generated by: python generate_dataset.py
+
+  models/
+    Folder containing the four saved model files (.pkl).
+    Generated by: python train_model.py
+
+
+================================================================================
+FILE STRUCTURE
+================================================================================
+
+  app.py                    — Main Streamlit application
+  generate_dataset.py       — Script to create the ML training dataset
+  train_model.py            — Script to train Random Forest & Linear Regression
+  predict_app.py            — Standalone ML prediction app (optional)
+  training_dataset.csv      — Generated training data
+  predictions.csv           — Auto-logged user queries
+  models/
+    random_forest_model.pkl
+    linear_regression_model.pkl
+    label_encoder.pkl
+    feature_encoder.pkl
+  USER_INSTRUCTIONS.txt     — This file
+
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+  Error: ML models not found
+    → Run:  python generate_dataset.py
+            python train_model.py
+
+  Error: streamlit not found
+    → Run:  pip install streamlit
+
+  Error: DuplicateElementId
+    → Make sure you are using the latest version of app.py
+
+  Error: google.generativeai module not found
+    → Run:  pip install google-generativeai
+
+  App opens but AI tabs give errors
+    → Check your internet connection. The AI tabs need access to the
+      Gemini API. The ML tab (Tab 4) works fully offline.
+
+  Browser does not open automatically
+    → Open your browser and go to:  http://localhost:8501
+
+
+================================================================================
+QUICK START SUMMARY
+================================================================================
+
+  First time setup:
+    1.  pip install streamlit google-generativeai scikit-learn pandas numpy
+    2.  python generate_dataset.py
+    3.  python train_model.py
+    4.  streamlit run app.py
+
+  After first setup (every subsequent time):
+    1.  streamlit run app.py
+
+================================================================================

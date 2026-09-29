@@ -1,0 +1,33 @@
+MODEL PERFORMANCE REPORT
+==================================================
+
+1. Random Forest Classifier
+Accuracy  : 93.95%
+Precision : 94.44%
+Recall    : 93.95%
+F1 Score  : 93.81%
+
+2. Logistic Regression
+Accuracy  : 66.23%
+Precision : 65.85%
+Recall    : 66.23%
+F1 Score  : 65.46%
+
+3. Support Vector Machine (SVM)
+Accuracy  : 83.21%
+Precision : 83.76%
+Recall    : 83.21%
+F1 Score  : 82.78%
+
+4. XGBoost Classifier
+Accuracy  : 93.09%
+Precision : 93.18%
+Recall    : 93.09%
+F1 Score  : 93.02%
+
+5. CatBoost Classifier
+Accuracy  : 92.72%
+Precision : 93.18%
+Recall    : 92.72%
+F1 Score  : 92.55%
+

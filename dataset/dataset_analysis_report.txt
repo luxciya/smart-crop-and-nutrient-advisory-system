@@ -1,0 +1,145 @@
+======================================================================
+SMART CROP ADVISORY SYSTEM – DATASET ANALYSIS REPORT
+======================================================================
+
+1. DATASET OVERVIEW
+----------------------------------------------------------------------
+Total Rows       : 8100
+Total Columns    : 12
+Target Column    : recommended_crop
+
+2. TRAIN / TEST SPLIT
+----------------------------------------------------------------------
+Train Rows (80%) : 6480
+Test Rows  (20%) : 1620
+
+3. MISSING VALUES
+----------------------------------------------------------------------
+Total Missing Values : 0
+No missing values found.
+
+4. DUPLICATE ROWS
+----------------------------------------------------------------------
+Duplicate Rows : 0
+
+5. UNIQUE VALUE COUNTS
+----------------------------------------------------------------------
+Unique Crops      : 45
+Unique Soil Types : 7
+Unique Seasons    : 9
+Unique Regions    : 17
+
+6. CROP CLASS DISTRIBUTION
+----------------------------------------------------------------------
+Short-duration Rice       180
+Sorghum                   180
+Chilli                    180
+Beans                     180
+Cowpea                    180
+Cardamom                  180
+Pigeonpea                 180
+Wheat                     180
+Onion                     180
+Ginger                    180
+Soybean                   180
+Samba Rice                180
+Vegetables                180
+Cotton                    180
+Rice                      180
+Tea                       180
+Puncha Rice               180
+Blackgram                 180
+Maize                     180
+Coffee                    180
+Banana                    180
+Rabi Rice                 180
+Potato                    180
+Pepper                    180
+Rubber                    180
+Chickpea                  180
+Arecanut                  180
+Sugarcane                 180
+Watermelon                180
+Castor                    180
+Safflower                 180
+Sesame                    180
+Sunflower                 180
+Greengram                 180
+Pearl Millet              180
+Tapioca                   180
+Muskmelon                 180
+Cabbage                   180
+Coconut                   180
+Redgram                   180
+Groundnut                 180
+Turmeric                  180
+Cucumber                  180
+Millets                   180
+Carrot                    180
+
+7. CLASS IMBALANCE CHECK
+----------------------------------------------------------------------
+Minimum Class Count : 180
+Maximum Class Count : 180
+Imbalance Ratio     : 1.0
+Dataset Status      : Well Balanced ✅
+
+8. SOIL TYPE DISTRIBUTION
+----------------------------------------------------------------------
+Loamy                     2928
+Sandy                     1857
+Clay                      1204
+Silt                      955
+Peaty                     600
+Chalky                    288
+Saline                    268
+
+9. SEASON DISTRIBUTION
+----------------------------------------------------------------------
+Rabi / Winter (Nov – Feb) – AP / Telangana / Karnataka       1709
+Kharif / SW Monsoon (Jun – Oct) – AP / Telangana / Karnataka 1357
+Summer / Zaid (Mar – May) – AP / Telangana / Karnataka       1083
+Samba (Aug – Jan) – TN Main Season                           822
+Puncha / Winter Paddy (Dec – Feb) – Kerala                   720
+Kuruvai (Jun – Sep) – TN Early Kharif                        649
+Mundakan / NE Monsoon (Sep – Nov) – Kerala                   639
+Virippu / SW Monsoon (Jun – Aug) – Kerala                    574
+Navarai (Jan – Mar) – TN Summer Crop                         547
+
+10. REGION DISTRIBUTION
+----------------------------------------------------------------------
+Kerala – Western Ghats (High Rainfall Zone)        951
+Tamil Nadu – Nilgiris / High Altitude Zone         720
+Tamil Nadu – Cauvery Delta                         571
+Telangana – Eastern Ghats Upland                   563
+Tamil Nadu – Southern Dry Zone                     521
+Karnataka – Malnad (Western Ghats)                 508
+Kerala – Coastal Kerala                            492
+Kerala – Palakkad Gap                              490
+Telangana – Northern Telangana Dry Zone            481
+Karnataka – Krishna–Tungabhadra Basin              473
+Andhra Pradesh – Godavari Delta                    463
+Andhra Pradesh – Krishna Delta                     432
+Karnataka – Northern Dry Zone                      392
+Karnataka – Deccan Plateau                         371
+Andhra Pradesh – Rayalaseema                       264
+Tamil Nadu – Coastal Tamil Nadu                    206
+Andhra Pradesh – Coastal Andhra                    202
+
+11. NUMERICAL FEATURE SUMMARY
+----------------------------------------------------------------------
+       nitrogen  phosphorus  potassium       ph  moisture  temperature  humidity  rainfall
+count   8100.00     8100.00    8100.00  8100.00   8100.00      8100.00   8100.00   8100.00
+mean      76.13       55.79      82.44     6.54     56.50        25.81     64.81   1150.93
+std       29.49       14.47      37.34     0.64     17.03         7.45     17.62    683.26
+min       20.00       20.00      30.00     4.50     25.00        10.00     30.00    201.00
+25%       54.00       45.00      56.00     6.10     40.00        22.00     50.00    568.00
+50%       77.00       55.00      73.00     6.50     59.00        26.00     65.00    886.00
+75%       95.00       67.00     102.00     7.00     66.00        31.00     80.00   1759.00
+max      150.00      100.00     250.00     8.00     90.00        42.00     95.00   2500.00
+
+12. DATASET QUALITY VERDICT
+----------------------------------------------------------------------
+This dataset is suitable for machine learning classification.
+It contains agronomic, environmental, seasonal, and regional features.
+The dataset is appropriate for crop recommendation using multiple ML algorithms.
