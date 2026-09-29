@@ -111,21 +111,6 @@ I worked on:
 * Local Data storage and processing
 * Testing and evaluation
 
-## 📷 Screenshots
-
-Add your project screenshots here.
-
-Example:
-
-```text
-screenshots/
-├── home.png
-├── crop-recommendation.png
-├── fertilizer-recommendation.png
-├── ai-assistant.png
-└── market-demand.png
-```
-
 ## 🚀 How to Run
 
 ### 1. Clone the repository
